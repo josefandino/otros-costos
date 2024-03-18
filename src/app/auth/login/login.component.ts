@@ -1,9 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AngularModule, MaterialModule } from '../../shared/modules';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from 'express';
+//import { Router } from 'express';
 import { LoginService } from './login.service';
 import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { login } from '../store/auth.actions';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +30,10 @@ export class LoginComponent  {
   // private _router = inject(Router);
   // private readonly _m = inject(MensajeGlobal);
   private readonly _loginService = inject(LoginService);
+
+  constructor (private store: Store<{ auth: { token: string | null } }>){
+
+  }
 
   ngOnInit(): void {
     this.initIngresarForm();
@@ -60,14 +67,22 @@ export class LoginComponent  {
     return this.mostrarPassword ? 'text' : 'password';
   }
 
-  requestBody(): void {};
+  requestBody(): void {
+    const data = this.ingresarForm.value
+    this.login(data)
+  };
 
-  login(body: any) {}
+  login(body: any) {
+    this.login(body);
+  }
 
 
   ngOnDestroy(): void {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
+
+
+
 
 }
