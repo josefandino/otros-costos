@@ -29,9 +29,11 @@ export class LoginComponent  {
 
   // private _router = inject(Router);
   // private readonly _m = inject(MensajeGlobal);
-  private readonly _loginService = inject(LoginService);
+  // private readonly _loginService = inject(LoginService);
 
-  constructor (private store: Store<{ auth: { token: string | null } }>){
+  constructor (
+    private store: Store<{ auth: { token: string | null } }>
+    ){
 
   }
 
